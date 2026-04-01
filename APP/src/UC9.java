@@ -7,38 +7,6 @@ class InvalidBookingException extends Exception {
     }
 }
 
-// Reservation Model
-class Reservation {
-    private String reservationId;
-    private String customerName;
-    private String roomType;
-
-    public Reservation(String reservationId, String customerName, String roomType) {
-        this.reservationId = reservationId;
-        this.customerName = customerName;
-        this.roomType = roomType;
-    }
-
-    public String getReservationId() {
-        return reservationId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation ID: " + reservationId +
-                ", Customer: " + customerName +
-                ", Room Type: " + roomType;
-    }
-}
-
 // Inventory Service with Validation
 class InventoryService {
     private Map<String, Integer> roomInventory;
@@ -111,20 +79,20 @@ class BookingService {
     }
 }
 
-// Main Class
+// Main Class for UC9
 public class UC9 {
     public static void main(String[] args) {
         InventoryService inventoryService = new InventoryService();
         BookingHistory bookingHistory = new BookingHistory();
         BookingService bookingService = new BookingService(inventoryService, bookingHistory);
 
-        // Test cases
-        bookingService.createBooking("DEL-101", "Alice", "DELUXE");   // valid
-        bookingService.createBooking("STD-201", "Bob", "STANDARD");   // valid
-        bookingService.createBooking("SUI-301", "Charlie", "SUITE");  // valid
-        bookingService.createBooking("STD-202", "David", "PRESIDENT"); // invalid room type
-        bookingService.createBooking("DEL-102", "Eve", "DELUXE");     // valid
-        bookingService.createBooking("DEL-103", "Frank", "DELUXE");   // no rooms available
+        // Test bookings (some valid, some invalid)
+        bookingService.createBooking("DEL-101", "Alice", "DELUXE");     // valid
+        bookingService.createBooking("STD-201", "Bob", "STANDARD");      // valid
+        bookingService.createBooking("SUI-301", "Charlie", "SUITE");     // valid
+        bookingService.createBooking("STD-202", "David", "PRESIDENT");   // invalid room type
+        bookingService.createBooking("DEL-102", "Eve", "DELUXE");        // valid
+        bookingService.createBooking("DEL-103", "Frank", "DELUXE");      // no rooms available
 
         // Display all confirmed bookings
         System.out.println("\nAll confirmed bookings:");
